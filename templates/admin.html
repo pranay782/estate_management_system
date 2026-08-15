@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Admin Control Center | EstatePro{% endblock %}
+{% block content %}
+<section class="admin-hero">
+  <div><span class="eyebrow">ADMIN CONTROL CENTER</span><h1>EstatePro operations.</h1><p>Manage users, properties, inquiries and appointments from one place.</p></div>
+  <div class="admin-actions"><a class="btn btn-gold" href="{{ url_for('admin_users') }}">Manage users</a><a class="btn btn-light" href="{{ url_for('admin_property_csv') }}">Export CSV</a></div>
+</section>
+<div class="stat-grid">
+{% for key,label in [('users','Users'),('properties','Properties'),('available','Available'),('sold','Sold'),('rented','Rented'),('clients','Clients'),('agents','Agents'),('inquiries','Inquiries'),('appointments','Appointments')] %}
+<div class="stat-card dark"><small>{{ label }}</small><strong>{{ stats[key] }}</strong></div>
+{% endfor %}
+</div>
+<section class="section compact">
+  <div class="admin-nav">
+    <a href="{{ url_for('admin_users') }}">Users & roles →</a>
+    <a href="{{ url_for('admin_properties') }}">Properties →</a>
+    <a href="{{ url_for('admin_inquiries') }}">Inquiries →</a>
+    <a href="{{ url_for('admin_appointments') }}">Appointments →</a>
+  </div>
+</section>
+<section class="section compact"><div class="section-head"><h2>Recent properties</h2><a class="text-link" href="{{ url_for('admin_properties') }}">Manage all →</a></div><div class="property-grid">{% for p in recent_properties %}{% include "_property_card.html" %}{% endfor %}</div></section>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Clients & Agents | EstatePro{% endblock %}
+{% block content %}
+<section class="page-head"><span class="eyebrow">RELATIONSHIP MANAGEMENT</span><h1>Clients & agents</h1></section>
+<div class="two-col">
+<section class="panel"><div class="section-head"><h2>Clients</h2><span class="count">{{ clients|length }}</span></div>
+<form class="mini-form" method="post" action="{{ url_for('add_client') }}"><input name="name" placeholder="Name" required><input name="email" placeholder="Email"><input name="contact" placeholder="Contact"><input name="budget" type="number" placeholder="Budget"><input name="preferredLocation" placeholder="Preferred location"><input name="propertyType" placeholder="Property type"><input name="bedrooms" type="number" placeholder="Beds"><button class="btn btn-gold">Add client</button></form>
+<div class="list">{% for c in clients %}<div class="list-row"><div><b>{{ c.name }}</b><small>{{ c.email }} · ₹{{ "{:,.0f}".format(c.budget or 0) }}</small></div><a class="btn btn-outline btn-xs" href="{{ url_for('match_client', client_id=c._id) }}">Match</a></div>{% endfor %}</div>
+</section>
+<section class="panel"><div class="section-head"><h2>Agents</h2><span class="count">{{ agents|length }}</span></div>
+{% if logged_role=='Admin' %}<form class="mini-form" method="post" action="{{ url_for('add_agent') }}"><input name="name" placeholder="Name" required><input name="email" placeholder="Email"><input name="contact" placeholder="Contact"><input name="region" placeholder="Region"><input name="experienceYears" type="number" placeholder="Years"><input name="specialization" placeholder="Specialization"><button class="btn btn-gold">Add agent</button></form>{% endif %}
+<div class="list">{% for a in agents %}<div class="list-row"><div><b>{{ a.name }}</b><small>{{ a.specialization }} · {{ a.region }}</small></div><span class="status-pill">{{ a.status }}</span></div>{% endfor %}</div>
+</section>
+</div>
+{% endblock %}

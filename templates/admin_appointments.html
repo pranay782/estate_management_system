@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Appointment Management | EstatePro{% endblock %}
+{% block content %}
+<section class="page-head"><span class="eyebrow">ADMIN / APPOINTMENTS</span><h1>Appointment management</h1></section>
+<div class="table-wrap"><table><thead><tr><th>ID</th><th>Client</th><th>Agent</th><th>Date</th><th>Time</th><th>Status</th><th>Update</th></tr></thead><tbody>
+{% for a in appointments %}
+<tr><td>{{ a.appointmentId or a._id }}</td><td>{{ a.clientId }}</td><td>{{ a.agentId }}</td><td>{{ a.date }}</td><td>{{ a.time }}</td><td><span class="status-pill">{{ a.status }}</span></td><td><form class="inline" method="post" action="{{ url_for('admin_appointment_status', appointment_id=a._id) }}"><select name="status">{% for s in ['Pending','Confirmed','Completed','Cancelled'] %}<option {% if a.status==s %}selected{% endif %}>{{ s }}</option>{% endfor %}</select><button class="btn btn-gold btn-xs">Update</button></form></td></tr>
+{% else %}<tr><td colspan="7" class="empty">No appointments.</td></tr>{% endfor %}
+</tbody></table></div>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Inquiry Management | EstatePro{% endblock %}
+{% block content %}
+<section class="page-head"><span class="eyebrow">ADMIN / INQUIRIES</span><h1>Inquiry management</h1></section>
+<div class="table-wrap"><table><thead><tr><th>ID</th><th>Client</th><th>Property</th><th>Status</th><th>Update</th></tr></thead><tbody>
+{% for i in inquiries %}
+<tr><td>{{ i.inquiryId or i._id }}</td><td>{{ i.clientId }}</td><td>{{ i.propertyId }}</td><td><span class="status-pill">{{ i.status }}</span></td><td><form class="inline" method="post" action="{{ url_for('admin_inquiry_status', inquiry_id=i._id) }}"><select name="status">{% for s in ['New','Contacted','Site Visit','Negotiation','Closed','Cancelled'] %}<option {% if i.status==s %}selected{% endif %}>{{ s }}</option>{% endfor %}</select><button class="btn btn-gold btn-xs">Update</button></form></td></tr>
+{% else %}<tr><td colspan="5" class="empty">No inquiries.</td></tr>{% endfor %}
+</tbody></table></div>
+{% endblock %}

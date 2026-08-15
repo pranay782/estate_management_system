@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Appointments | EstatePro{% endblock %}
+{% block content %}
+<section class="page-head"><span class="eyebrow">CALENDAR</span><h1>Appointments</h1></section>
+<div class="panel form-panel"><h3>Request appointment</h3><form class="form-grid" method="post">
+<label>Client<select name="clientId">{% for c in clients %}<option value="{{ c._id }}">{{ c.name }}</option>{% endfor %}</select></label>
+<label>Agent<select name="agentId">{% for a in agents %}<option value="{{ a._id }}">{{ a.name }}</option>{% endfor %}</select></label>
+<label>Property<select name="propertyId">{% for p in properties %}<option value="{{ p._id }}">{{ p.title }}</option>{% endfor %}</select></label>
+<label>Date<input name="date" type="date" required></label><label>Time<input name="time" type="time" required></label><label class="wide">Notes<textarea name="notes"></textarea></label>
+<button class="btn btn-gold">Request appointment</button></form></div>
+<div class="table-wrap"><table><thead><tr><th>ID</th><th>Client</th><th>Agent</th><th>Date</th><th>Time</th><th>Status</th></tr></thead><tbody>{% for a in appointments %}<tr><td>{{ a.appointmentId or a._id }}</td><td>{{ a.clientId }}</td><td>{{ a.agentId }}</td><td>{{ a.date }}</td><td>{{ a.time }}</td><td><span class="status-pill">{{ a.status }}</span></td></tr>{% endfor %}</tbody></table></div>
+{% endblock %}

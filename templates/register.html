@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Register | EstatePro{% endblock %}
+{% block content %}
+<div class="auth-page"><div class="auth-card">
+  <span class="eyebrow">JOIN ESTATEPRO</span><h1>Create account</h1><p>Public registration creates a Client account. Admin can later change roles.</p>
+  <form method="post" class="form-grid">
+    <label>Full name<input name="name" required></label>
+    <label>Username<input name="username" required></label>
+    <label>Email<input name="email" type="email" required></label>
+    <label>Password<input name="password" type="password" minlength="6" required></label>
+    <button class="btn btn-gold full">Create account →</button>
+  </form>
+  <p class="muted">Already registered? <a href="{{ url_for('login') }}">Sign in</a></p>
+</div></div>
+{% endblock %}

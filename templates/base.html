@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{% block title %}EstatePro{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<div class="app-shell">
+  <header class="topbar">
+    <a class="brand" href="{{ url_for('home') }}">
+      <span class="brand-mark">E</span>
+      <span><strong>EstatePro</strong><small>REALTY MANAGEMENT</small></span>
+    </a>
+    <nav>
+      <a href="{{ url_for('property_list') }}">Properties</a>
+      {% if logged_user %}
+        <a href="{{ url_for('dashboard') }}">Dashboard</a>
+        {% if logged_role in ['Admin','Agent'] %}
+          <a href="{{ url_for('clients_agents') }}">Clients & Agents</a>
+          <a href="{{ url_for('inquiries_page') }}">Inquiries</a>
+          <a href="{{ url_for('appointments_page') }}">Appointments</a>
+        {% endif %}
+        {% if logged_role == 'Admin' %}
+          <a class="nav-admin" href="{{ url_for('admin_dashboard') }}">Admin</a>
+        {% endif %}
+      {% endif %}
+    </nav>
+    <div class="top-actions">
+      {% if logged_user %}
+        <span class="user-chip">{{ logged_name or logged_user }} · {{ logged_role }}</span>
+        <a class="btn btn-dark btn-sm" href="{{ url_for('logout') }}">Logout</a>
+      {% else %}
+        <a class="btn btn-outline btn-sm" href="{{ url_for('login') }}">Sign in</a>
+        <a class="btn btn-gold btn-sm" href="{{ url_for('register') }}">Register</a>
+      {% endif %}
+    </div>
+  </header>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div class="flash-wrap">
+      {% for category, message in messages %}
+        <div class="flash {{ category }}">{{ message }}</div>
+      {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
+  <main>{% block content %}{% endblock %}</main>
+
+  <footer>
+    <div><strong>EstatePro</strong><br><span>Modern property operations, simplified.</span></div>
+    <span>© 2026 EstatePro</span>
+  </footer>
+</div>
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

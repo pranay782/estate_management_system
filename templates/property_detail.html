@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}{{ property.title }} | EstatePro{% endblock %}
+{% block content %}
+{% set loc = property.location if property.location is mapping else {} %}
+{% set d = property.details if property.details is mapping else {} %}
+<section class="detail">
+  <div class="detail-media">
+    {% if property.images %}
+      <img src="{{ property.images[0] }}" alt="{{ property.title }}">
+    {% else %}<div class="detail-placeholder">ESTATEPRO</div>{% endif %}
+  </div>
+  <div class="detail-copy">
+    <span class="eyebrow">{{ property.propertyType }} · {{ property.listingType }}</span>
+    <h1>{{ property.title }}</h1>
+    <p class="location">⌖ {{ loc.get('address','') }}, {{ loc.get('city','') }}, {{ loc.get('state','') }}</p>
+    <div class="detail-price">₹{{ "{:,.0f}".format(property.price or 0) }}</div>
+    <p>{{ property.description or 'No description available.' }}</p>
+    <div class="detail-stats">
+      <div><b>{{ d.get('bedrooms', property.bedrooms or '—') }}</b><span>Bedrooms</span></div>
+      <div><b>{{ d.get('bathrooms', property.bathrooms or '—') }}</b><span>Bathrooms</span></div>
+      <div><b>{{ d.get('areaSqFt', property.areaSqFt or '—') }}</b><span>Sq Ft</span></div>
+    </div>
+    {% if logged_user %}
+      <a class="btn btn-gold" href="{{ url_for('inquiries_page') }}">Make an inquiry →</a>
+    {% else %}
+      <a class="btn btn-dark" href="{{ url_for('login') }}">Sign in to inquire →</a>
+    {% endif %}
+  </div>
+</section>
+<section class="section">
+  <div class="info-panel"><h3>Amenities</h3><div class="amenities">{% for a in property.amenities or [] %}<span>{{ a }}</span>{% else %}<span>No amenities listed.</span>{% endfor %}</div></div>
+</section>
+{% endblock %}

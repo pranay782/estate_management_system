@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Users | Admin | EstatePro{% endblock %}
+{% block content %}
+<section class="page-head"><span class="eyebrow">ADMIN / USERS</span><h1>Users & roles</h1><p>Change roles, activate accounts or remove users.</p></section>
+<div class="table-wrap"><table><thead><tr><th>User</th><th>Email</th><th>Role</th><th>Status</th><th>Actions</th></tr></thead><tbody>
+{% for u in users %}
+<tr><td><strong>{{ u.name or u.username }}</strong><small>{{ u.username }}</small></td><td>{{ u.email }}</td><td>
+<form class="inline" method="post" action="{{ url_for('admin_change_role', user_id=u._id) }}"><select name="role"><option {% if u.role=='Client' %}selected{% endif %}>Client</option><option {% if u.role=='Agent' %}selected{% endif %}>Agent</option><option {% if u.role=='Admin' %}selected{% endif %}>Admin</option></select><button class="btn btn-outline btn-xs">Save</button></form>
+</td><td><span class="status-pill">{{ u.status or 'Active' }}</span></td><td><div class="actions">
+<form method="post" action="{{ url_for('admin_change_status', user_id=u._id) }}"><button class="btn btn-dark btn-xs">{% if u.status=='Active' %}Deactivate{% else %}Activate{% endif %}</button></form>
+<form method="post" action="{{ url_for('admin_delete_user', user_id=u._id) }}" onsubmit="return confirm('Delete this user?')"><button class="btn btn-danger btn-xs">Delete</button></form>
+</div></td></tr>
+{% else %}<tr><td colspan="5" class="empty">No users found.</td></tr>{% endfor %}
+</tbody></table></div>
+{% endblock %}

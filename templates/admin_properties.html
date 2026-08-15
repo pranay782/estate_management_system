@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Property Management | EstatePro{% endblock %}
+{% block content %}
+<section class="page-head row-between"><div><span class="eyebrow">ADMIN / PROPERTIES</span><h1>Property management</h1></div><a class="btn btn-gold" href="{{ url_for('add_property') }}">+ Add property</a></section>
+<div class="table-wrap"><table><thead><tr><th>Property</th><th>Type</th><th>Price</th><th>Status</th><th>Verification</th><th>Action</th></tr></thead><tbody>
+{% for p in properties %}
+<tr><td><strong>{{ p.title }}</strong><small>{{ p.propertyId or p._id }}</small></td><td>{{ p.propertyType }} / {{ p.listingType }}</td><td>₹{{ "{:,.0f}".format(p.price or 0) }}</td><td><span class="status-pill">{{ p.status }}</span></td><td>{% if p.verified %}<span class="verified">✓ Verified</span>{% else %}Pending{% endif %}</td><td><form method="post" action="{{ url_for('admin_delete_property', property_id=p._id) }}" onsubmit="return confirm('Delete this property?')"><button class="btn btn-danger btn-xs">Delete</button></form></td></tr>
+{% endfor %}
+</tbody></table></div>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}EstatePro | Premium Real Estate{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="hero-copy">
+    <span class="eyebrow">CURATED REAL ESTATE</span>
+    <h1>Find a place<br><em>worth calling home.</em></h1>
+    <p>Discover verified properties, connect with agents and manage every step of the real-estate journey from one elegant workspace.</p>
+    <div class="hero-actions">
+      <a class="btn btn-gold" href="{{ url_for('property_list') }}">Explore properties →</a>
+      {% if not logged_user %}<a class="btn btn-light" href="{{ url_for('register') }}">Create account</a>{% endif %}
+    </div>
+  </div>
+  <div class="hero-card">
+    <span>ESTATEPRO INDEX</span>
+    <strong>{{ stats.properties }}</strong>
+    <p>listed properties</p>
+    <div class="hero-stat-row">
+      <div><b>{{ stats.available }}</b><small>Available</small></div>
+      <div><b>{{ stats.agents }}</b><small>Agents</small></div>
+      <div><b>{{ stats.clients }}</b><small>Clients</small></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <div><span class="eyebrow">LATEST COLLECTION</span><h2>Featured properties</h2></div>
+    <a href="{{ url_for('property_list') }}" class="text-link">View all →</a>
+  </div>
+  <div class="property-grid">
+    {% for p in featured %}
+      {% include "_property_card.html" %}
+    {% else %}
+      <div class="empty">No properties available yet.</div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

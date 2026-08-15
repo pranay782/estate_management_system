@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Inquiries | EstatePro{% endblock %}
+{% block content %}
+<section class="page-head"><span class="eyebrow">SALES PIPELINE</span><h1>Inquiries</h1></section>
+<div class="panel form-panel"><h3>Create inquiry</h3><form class="form-grid" method="post">
+<label>Client<select name="clientId">{% for c in clients %}<option value="{{ c._id }}">{{ c.name }}</option>{% endfor %}</select></label>
+<label>Property<select name="propertyId">{% for p in properties %}<option value="{{ p._id }}">{{ p.title }}</option>{% endfor %}</select></label>
+<label>Agent<select name="agentId">{% for a in agents %}<option value="{{ a._id }}">{{ a.name }}</option>{% endfor %}</select></label>
+<label class="wide">Message<textarea name="message"></textarea></label><button class="btn btn-gold">Create inquiry</button>
+</form></div>
+<div class="table-wrap"><table><thead><tr><th>ID</th><th>Client</th><th>Property</th><th>Status</th><th>Change</th></tr></thead><tbody>{% for i in inquiries %}<tr><td>{{ i.inquiryId or i._id }}</td><td>{{ i.clientId }}</td><td>{{ i.propertyId }}</td><td><span class="status-pill">{{ i.status }}</span></td><td><form class="inline" method="post" action="{{ url_for('update_inquiry', inquiry_id=i._id) }}"><select name="status">{% for s in ['New','Contacted','Site Visit','Negotiation','Closed','Cancelled'] %}<option {% if i.status==s %}selected{% endif %}>{{ s }}</option>{% endfor %}</select><button class="btn btn-outline btn-xs">Save</button></form></td></tr>{% endfor %}</tbody></table></div>
+{% endblock %}

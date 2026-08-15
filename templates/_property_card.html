@@ -1,0 +1,25 @@
+<article class="property-card">
+  <div class="property-image">
+    {% set imgs = p.images if p.images is defined else [] %}
+    {% if imgs and imgs[0] %}
+      <img src="{{ imgs[0] }}" alt="{{ p.title }}">
+    {% else %}
+      <div class="image-placeholder"><span>ESTATEPRO</span></div>
+    {% endif %}
+    <span class="badge">{{ p.listingType or 'SALE' }}</span>
+    {% if p.featured %}<span class="featured">FEATURED</span>{% endif %}
+  </div>
+  <div class="property-body">
+    <div class="property-top"><span>{{ p.propertyType or 'PROPERTY' }}</span><span class="status">{{ p.status or 'Available' }}</span></div>
+    <h3>{{ p.title or 'Untitled property' }}</h3>
+    {% set loc = p.location if p.location is mapping else {} %}
+    <p class="location">⌖ {{ loc.get('area', p.location or '') }}, {{ loc.get('city', p.city or '') }}</p>
+    {% set d = p.details if p.details is mapping else {} %}
+    <div class="features">
+      <span>🛏 {{ d.get('bedrooms', p.bedrooms or '—') }} Beds</span>
+      <span>♨ {{ d.get('bathrooms', p.bathrooms or '—') }} Baths</span>
+      <span>▣ {{ d.get('areaSqFt', p.areaSqFt or '—') }} sqft</span>
+    </div>
+    <div class="price-row"><div><small>PRICE</small><strong>₹{{ "{:,.0f}".format(p.price or 0) }}</strong></div><a class="btn btn-dark btn-sm" href="{{ url_for('property_detail', property_id=p._id) }}">View Details →</a></div>
+  </div>
+</article>

@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Dashboard | EstatePro{% endblock %}
+{% block content %}
+<section class="page-head"><span class="eyebrow">WORKSPACE</span><h1>Good to see you, {{ logged_name or logged_user }}.</h1><p>Your real-estate activity at a glance.</p></section>
+<div class="stat-grid">
+{% for key,label in [('properties','Properties'),('available','Available'),('sold','Sold'),('rented','Rented'),('clients','Clients'),('agents','Agents'),('inquiries','Inquiries'),('appointments','Appointments')] %}
+<div class="stat-card"><small>{{ label }}</small><strong>{{ stats[key] }}</strong></div>
+{% endfor %}
+</div>
+<section class="section compact"><div class="section-head"><h2>Recently listed</h2><a class="text-link" href="{{ url_for('property_list') }}">Browse all →</a></div><div class="property-grid">{% for p in recent %}{% include "_property_card.html" %}{% endfor %}</div></section>
+{% endblock %}

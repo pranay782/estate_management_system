@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Properties | EstatePro{% endblock %}
+{% block content %}
+<section class="page-head">
+  <span class="eyebrow">PROPERTY CATALOG</span><h1>Explore properties</h1>
+  <p>Search the existing MongoDB property collection with filters designed for your EstatePro data.</p>
+</section>
+<section class="toolbar">
+  <form class="search-form" method="get">
+    <input name="q" value="{{ filters.get('q','') }}" placeholder="Search title, city, area or property ID">
+    <select name="propertyType"><option value="">All types</option><option>Apartment</option><option>Villa</option><option>Penthouse</option><option>House</option></select>
+    <select name="listingType"><option value="">Buy / Rent</option><option value="Sale">Sale</option><option value="Rent">Rent</option></select>
+    <select name="status"><option value="">Any status</option><option>Available</option><option>Sold</option><option>Rented</option></select>
+    <input name="max_price" type="number" value="{{ filters.get('max_price','') }}" placeholder="Max price">
+    <button class="btn btn-gold" type="submit">Search</button>
+  </form>
+</section>
+<section class="section compact">
+  <div class="property-grid">
+    {% for p in properties %}{% include "_property_card.html" %}{% else %}<div class="empty">No matching properties found.</div>{% endfor %}
+  </div>
+</section>
+{% endblock %}

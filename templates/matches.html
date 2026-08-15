@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block title %}Property Matches | EstatePro{% endblock %}
+{% block content %}
+<section class="page-head"><span class="eyebrow">SMART MATCH</span><h1>Matches for {{ client.name }}</h1><p>Available properties within the client's budget and preferences.</p></section>
+<div class="property-grid">{% for p in matches %}{% include "_property_card.html" %}{% else %}<div class="empty">No matching properties found.</div>{% endfor %}</div>
+{% endblock %}

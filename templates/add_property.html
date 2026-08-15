@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Add Property | EstatePro{% endblock %}
+{% block content %}
+<section class="page-head"><span class="eyebrow">PROPERTY MANAGEMENT</span><h1>Add a property</h1><p>Fields are mapped to the existing property structure used by EstatePro.</p></section>
+<form method="post" enctype="multipart/form-data" class="form-card">
+  <div class="form-section"><h3>Basic information</h3><div class="form-grid">
+    <label>Property ID<input name="propertyId" placeholder="PROP101"></label>
+    <label>Title<input name="title" required></label>
+    <label>Property type<select name="propertyType"><option>Apartment</option><option>Villa</option><option>Penthouse</option><option>House</option></select></label>
+    <label>Listing type<select name="listingType"><option>Sale</option><option>Rent</option></select></label>
+    <label>Price<input name="price" type="number" required></label>
+    <label>Status<select name="status"><option>Available</option><option>Sold</option><option>Rented</option></select></label>
+    <label>Maintenance<input name="maintenance" type="number"></label>
+    <label>Security deposit<input name="securityDeposit" type="number"></label>
+  </div></div>
+  <div class="form-section"><h3>Location</h3><div class="form-grid">
+    <label>Address<input name="address"></label><label>Area<input name="area"></label><label>City<input name="city"></label><label>State<input name="state"></label><label>Country<input name="country" value="India"></label><label>Pincode<input name="pincode"></label>
+  </div></div>
+  <div class="form-section"><h3>Property details</h3><div class="form-grid">
+    <label>Bedrooms<input name="bedrooms" type="number"></label><label>Bathrooms<input name="bathrooms" type="number"></label><label>Area (sqft)<input name="areaSqFt" type="number"></label><label>Floor<input name="floor" type="number"></label><label>Total floors<input name="totalFloors" type="number"></label><label>Furnished<select name="furnished"><option>Unfurnished</option><option>Semi-Furnished</option><option>Fully Furnished</option></select></label>
+    <label>Parking<select name="parking"><option>No</option><option>Yes</option></select></label><label>Negotiable<select name="negotiable"><option>No</option><option>Yes</option></select></label>
+    <label class="wide">Amenities<input name="amenities" placeholder="Gym, Pool, Parking, Security"></label>
+    <label class="wide">Description<textarea name="description" rows="5"></textarea></label>
+    <label class="wide">Image<input name="image" type="file" accept=".png,.jpg,.jpeg,.webp"></label>
+    <label>Owner ID<input name="ownerId"></label><label>Agent ID<input name="agentId"></label>
+    <label>Featured<select name="featured"><option>No</option><option>Yes</option></select></label>
+  </div></div>
+  <button class="btn btn-gold">Publish property →</button>
+</form>
+{% endblock %}
