@@ -1,4 +1,4 @@
-# EstatePro – Redesigned Real Estate Management System
+# EstatePro – Real Estate Management System
 
 A Flask + MongoDB real-estate management website with:
 - Luxury navy/gold UI
